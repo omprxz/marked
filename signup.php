@@ -1,9 +1,49 @@
 <?php
 require 'actions/conn.php';
-
+$msg = "";
+  $status = "";
 if (isset($_POST['submit'])) {
-  // check if both passwords are same, check if email id not used and if user with same roll number branch and semester not exists
-  
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $role = $_POST['role'];
+  $branch = isset($_POST['branch']) ? $_POST['branch'] : '';
+  $semester = isset($_POST['semester']) ? $_POST['semester'] : '';
+  $roll = isset($_POST['roll']) ? $_POST['roll'] : '';
+  $pass = $_POST['pass'];
+  $pass = password_hash($pass, PASSWORD_DEFAULT);
+  $sql = "SELECT * FROM users WHERE email='$email'";
+
+  if ($role == "student"){
+    if(empty($branch) || empty($semester) || empty($roll)) {
+    $msg = "All fields are required!";
+    $status = "danger";
+  }else{
+  $sql = "SELECT * FROM users WHERE email='$email' OR (role='student' AND branch='$branch' AND semester='$semester' AND roll='$roll')";
+  $sql2 = "INSERT INTO users (name, email, role, branch, semester, roll, pass) VALUES ('$name', '$email', '$role', '$branch', '$semester', '$roll', '$pass')";
+  }
+  }else{
+  $sql = "SELECT * FROM users WHERE email='$email'";
+  $sql2 = "INSERT INTO users (name, email, role, pass) VALUES ('$name', '$email', '$role', '$pass')";
+  }
+
+  $result = mysqli_query($conn, $sql);
+
+  if (mysqli_num_rows($result) > 0) {
+    $msg = "Email or User already exists!";
+    $status = "danger";
+  } else {
+    
+if(!empty($sql2)){
+    if (mysqli_query($conn, $sql2)) {
+      $msg = "Account Created!";
+    $status = "success";
+    } else {
+      echo "<div class='alert alert-danger'>Error: " . $sql2 . "<br>" . mysqli_error($conn) . "</div>";
+      $msg = "Error: " . $sql2 . "<br>" . mysqli_error($conn);
+      $status = "danger";
+    }
+}
+  }
 }
 
 ?>
@@ -32,27 +72,27 @@ if (isset($_POST['submit'])) {
             pass
          -->
         <form action="" method="post" class="m-4 ">
-          <div class="alert alert-success">
-            Account Created!
+          <div class="alert alert-<?php echo $status; ?>">
+            <?php echo $msg; ?>
           </div>
             <div class="form-floating mb-3">
                 <input type="text" name="name" class="form-control" id="name" placeholder="" required>
                 <label for="name">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
                 <label for="email">Email address</label>
             </div>
             <div class="mb-3">
                 <select name="role" class="form-select" id="role" aria-label="Role" required>
-                    <option selected disabled>Select Role</option>
+                    <option selected value="" disabled>Select Role</option>
                     <option value="student">Student</option>
                     <option value="faculty">Faculty</option>
                 </select>
             </div>      
             <div class="mb-3 student-dets-div ">
-                <select name="branch" class="form-select" id="branch" aria-label="Branch" required>
-                    <option selected>Select Branch</option>
+                <select name="branch" class="form-select" id="branch" aria-label="Branch">
+                    <option selected value="" disabled>Select Branch</option>
                     <option value="CSE">Computer Science and Engineering (CSE)</option>
                     <option value="CE">Civil Engineering (CE)</option>
                     <option value="ECE">Electronics and Communication Engineering (ECE)</option>
@@ -62,8 +102,8 @@ if (isset($_POST['submit'])) {
                 </select>
             </div>      
             <div class="mb-3 student-dets-div ">
-                <select name="semester" class="form-select" id="semester" aria-label="Semester" required>
-                    <option selected>Select Semester</option>
+                <select name="semester" class="form-select" id="semester" value="" aria-label="Semester">
+                    <option selected disabled>Select Semester</option>
                     <option value="1">1st Semester</option>
                     <option value="2">2nd Semester</option>
                     <option value="3">3rd Semester</option>
@@ -73,7 +113,7 @@ if (isset($_POST['submit'])) {
                 </select>
             </div>
             <div class="form-floating mb-3 student-dets-div ">
-                <input type="number" name="roll" class="form-control" id="roll" placeholder="" required>
+                <input type="number" name="roll" class="form-control" id="roll" placeholder="">
                 <label for="roll">Roll</label>
             </div>
             
