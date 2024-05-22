@@ -1,6 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+if (isset($_POST['submit'])) {
+  
+}
 
+?>
+
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +30,10 @@
             roll
             pass
          -->
-        <form method="post" class="m-4 ">
+        <form action="" method="post" class="m-4 ">
+          <div class="alert alert-success">
+            Account Created!
+          </div>
             <div class="form-floating mb-3">
                 <input type="text" name="name" class="form-control" id="name" placeholder="">
                 <label for="name">Name</label>
@@ -66,7 +74,7 @@
                 <label for="pass">Password</label>
             </div>
             <div class="mt-4 text-center">
-                <button class="btn btn-outline-success ">Register</button>
+                <button name="submit" class="btn btn-outline-success ">Register</button>
             </div>
         </form>
     </div>
