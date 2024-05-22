@@ -1,5 +1,8 @@
 <?php
+require 'actions/conn.php';
+
 if (isset($_POST['submit'])) {
+  // check if both passwords are same, check if email id not used and if user with same roll number branch and semester not exists
   
 }
 
@@ -35,15 +38,22 @@ if (isset($_POST['submit'])) {
             Account Created!
           </div>
             <div class="form-floating mb-3">
-                <input type="text" name="name" class="form-control" id="name" placeholder="">
+                <input type="text" name="name" class="form-control" id="name" placeholder="" required>
                 <label for="name">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
                 <label for="email">Email address</label>
             </div>
             <div class="mb-3">
-                <select name="branch" class="form-select" id="branch" aria-label="Branch">
+                <select name="role" class="form-select" id="role" aria-label="Role" required>
+                    <option selected disabled>Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                </select>
+            </div>      
+            <div class="mb-3 student-dets-div d-none ">
+                <select name="branch" class="form-select" id="branch" aria-label="Branch" required>
                     <option selected>Select Branch</option>
                     <option value="CSE">Computer Science and Engineering (CSE)</option>
                     <option value="CE">Civil Engineering (CE)</option>
@@ -53,8 +63,8 @@ if (isset($_POST['submit'])) {
                     <option value="AUTOM">Automobile Engineering (AUTOM)</option>
                 </select>
             </div>      
-            <div class="mb-3">
-                <select name="semester" class="form-select" id="semester" aria-label="Semester">
+            <div class="mb-3 student-dets-div d-none ">
+                <select name="semester" class="form-select" id="semester" aria-label="Semester" required>
                     <option selected>Select Semester</option>
                     <option value="1">1st Semester</option>
                     <option value="2">2nd Semester</option>
@@ -64,25 +74,44 @@ if (isset($_POST['submit'])) {
                     <option value="6">6th Semester</option>
                 </select>
             </div>
-            <div class="form-floating mb-3">
-                <input type="number" name="roll" class="form-control" id="roll" placeholder="">
+            <div class="form-floating mb-3 student-dets-div d-none ">
+                <input type="number" name="roll" class="form-control" id="roll" placeholder="" required>
                 <label for="roll">Roll</label>
             </div>
             
-            <div class="form-floating mb-3">
-                <input type="password" name="pass" class="form-control" id="pass" placeholder="">
-                <label for="pass">Password</label>
+            <div class="input-group mb-3">
+                <input type="password" name="pass" class="form-control" id="pass" placeholder="Password"
+                    aria-label="Password">
+                <label for="pass" class="visually-hidden">Password</label>
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="pass">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="pass2" class="form-control" id="pass2" placeholder="Confirm Password"
+                    aria-label="Confirm Password">
+                <label for="pass2" class="visually-hidden">Confirm Password</label>
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="pass2">
+                    <i class="fas fa-eye"></i>
+                </button>
             </div>
             <div class="mt-4 text-center">
-                <button name="submit" class="btn btn-outline-success ">Register</button>
+                <button name="submit" class="btn btn-outline-success register">Register</button>
             </div>
         </form>
     </div>
 
-
+    <script>
+        $(".register").click(function() {
+            e.preventDefault()
+            alert("ok")
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="eruda.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" type="text/javascript"
         charset="utf-8"></script>
+    <script src="components/signup.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>
