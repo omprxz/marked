@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 $("#role").on("change", function() {
     if ($(this).val() == "student") {
-        $('.student-dets-div').show();
+        $('.student-dets-div').css('display', 'block');
     } else {
         $('.student-dets-div').css('display', 'none');
     }

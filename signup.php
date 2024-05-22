@@ -15,7 +15,8 @@ if (isset($_POST['submit'])) {
     <title>Register</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" type="text/css" media="all" />
-    <link href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="components/signup.css">
 
 </head>
 
@@ -49,7 +50,7 @@ if (isset($_POST['submit'])) {
                     <option value="faculty">Faculty</option>
                 </select>
             </div>      
-            <div class="mb-3 student-dets-div d-none ">
+            <div class="mb-3 student-dets-div ">
                 <select name="branch" class="form-select" id="branch" aria-label="Branch" required>
                     <option selected>Select Branch</option>
                     <option value="CSE">Computer Science and Engineering (CSE)</option>
@@ -60,7 +61,7 @@ if (isset($_POST['submit'])) {
                     <option value="AUTOM">Automobile Engineering (AUTOM)</option>
                 </select>
             </div>      
-            <div class="mb-3 student-dets-div d-none ">
+            <div class="mb-3 student-dets-div ">
                 <select name="semester" class="form-select" id="semester" aria-label="Semester" required>
                     <option selected>Select Semester</option>
                     <option value="1">1st Semester</option>
@@ -71,7 +72,7 @@ if (isset($_POST['submit'])) {
                     <option value="6">6th Semester</option>
                 </select>
             </div>
-            <div class="form-floating mb-3 student-dets-div d-none ">
+            <div class="form-floating mb-3 student-dets-div ">
                 <input type="number" name="roll" class="form-control" id="roll" placeholder="" required>
                 <label for="roll">Roll</label>
             </div>
@@ -81,14 +82,6 @@ if (isset($_POST['submit'])) {
                     aria-label="Password">
                 <label for="pass" class="visually-hidden">Password</label>
                 <button class="btn btn-outline-secondary toggle-password" type="button" data-target="pass">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </div>
-            <div class="input-group mb-3">
-                <input type="password" name="pass2" class="form-control" id="pass2" placeholder="Confirm Password"
-                    aria-label="Confirm Password">
-                <label for="pass2" class="visually-hidden">Confirm Password</label>
-                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="pass2">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
