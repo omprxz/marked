@@ -182,7 +182,7 @@ if (mysqli_num_rows($result) > 0) {
                             sign: sign
                         },
                         success: function(response) {
-                            Toast.fire({
+                            Swal.fire({
                                 icon: response['status'],
                                 title: response.message
                             });

@@ -1,10 +1,13 @@
 <?php
 session_start();
-if(isset($_SESSION['userid'])){
-  header('Location: profile.php');
-}
 require 'actions/conn.php';
-
+if(isset($_SESSION['userid'])){
+    if($userSql['role'] == 'student'){
+  header('Location: markatt.php');
+    }else{
+        header('Location: allattendance.php');
+    }
+}
 $msg = isset($_GET['msg']) ? $_GET['msg'] : "";
 $status = isset($_GET['status']) ? $_GET['status'] : "";
 
@@ -22,8 +25,11 @@ if (isset($_POST['submit'])) {
       $_SESSION['userid'] = $user['id'];
       $msg = "Login successful!";
       $status = "success";
-      header("Location: profile.php");
-      exit();
+      if($user['role']=='student'){
+      header("Location: markatt.php");
+    }else{
+        header("Location: allattendance.php");
+    }
     } else {
       $msg = "Invalid password!";
       $status = "danger";

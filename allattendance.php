@@ -155,4 +155,4 @@ function getTotalWorkingDays($startAttendenceDate) {
   }
   return $workingDays;
 }
-?>0
+?>

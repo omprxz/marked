@@ -1,9 +1,13 @@
 <?php
 session_start();
-if(isset($_SESSION['userid'])){
-  header('Location: profile.php');
-}
 require 'actions/conn.php';
+if(isset($_SESSION['userid'])){
+    if($userSql['role'] == 'student'){
+  header('Location: markatt.php');
+    }else{
+        header('Location: allattendance.php');
+    }
+}
 $msg = "";
 $status = "";
 if (isset($_POST['submit'])) {
