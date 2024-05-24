@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['HTTP_HOST'] == 'localhost'){
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -14,7 +14,7 @@ if($_SERVER['HTTP_HOST'] == 'localhost'){
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 require_once('checkLogin.php');
 ?>
