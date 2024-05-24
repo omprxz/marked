@@ -72,6 +72,7 @@ $attendancePercentage = ($totalAttendance / $workingDays) * 100;
     </div>
 <?php endif; ?>
         <div class="text-center mb-4">
+          <p class="">Date: <?php echo $startAttendenceDate.' -> '.date("Y-m-d"); ?></p>
     <p class="badge bg-dark p-2">Total Working Days: <?php echo $workingDays; ?></p>
     <div class="d-flex justify-content-around gap-3">
         <div class="flex-fill badge bg-primary p-2">Present: <?php echo $presentDays; ?></div>

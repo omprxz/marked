@@ -53,7 +53,7 @@ $collegeLon = 85.1033881;
 
 $distance = distance($userLat, $userLon, $collegeLat, $collegeLon, 'K') * 1000;
 
-if ($distance > $startAttendenceDate) {
+if ($distance > $attendenceLocationRange) {
     echo json_encode(['status' => 'error', 'message' => 'You are not in the college']);
     exit();
 }

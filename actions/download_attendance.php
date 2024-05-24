@@ -8,13 +8,14 @@ class PDF extends FPDF
     function Header()
     {
         global $totalWorkingDays;
+        global $startAttendenceDate;
 
         $this->SetFont('Arial', 'B', 14);
         $this->Cell(0, 10, 'Attendance Report', 0, 1, 'C');
         $this->Ln(5);
 
         $this->SetFont('Arial', 'I', 10);
-        $this->Cell(0, 10, 'Date: ' . date('F j, Y'), 0, 1, 'C');
+       $this->Cell(0, 10, 'Date: '.$startAttendenceDate.' -> ' . date('Y-m-d'), 0, 1, 'C');
         $this->Ln(5);
 
         $this->Cell(0, 10, 'Total Working Days: ' . $totalWorkingDays, 0, 1, 'C');

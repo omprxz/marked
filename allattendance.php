@@ -63,7 +63,7 @@ if (!isset($_SESSION['userid'])) {
       <h1 class="fw-bold mt-3 text-center">All Attendance</h1>
       <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
           <div>
-              <p class="mb-2">Today's Date: <?php echo date("Y-m-d"); ?></p>
+              <p class="mb-2">Date: <?php echo $startAttendenceDate.' - '.date("Y-m-d"); ?></p>
               <p>Total Working Days: <?php echo $totalWorkingDays; ?></p>
           </div>
           <div class="d-flex gap-1">
