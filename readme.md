@@ -46,7 +46,7 @@ MarkEd is an education management system designed to simplify the process of tra
 
 ## Contributors:
 
-- [Your Name or Organization](https://github.com/omprxz)
+- [Omprakash Kumar](https://github.com/omprxz)
 
 ## License:
 
