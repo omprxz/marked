@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 06:12 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Host: localhost
+-- Generation Time: May 24, 2024 at 01:06 PM
+-- Server version: 5.7.34
+-- PHP Version: 8.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,11 +30,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `attendance` (
   `id` int(10) NOT NULL,
   `s_id` int(10) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `loc` varchar(255) NOT NULL,
-  `clg_loc` varchar(255) NOT NULL,
+  `s_lat` float(10,6) NOT NULL,
+  `s_long` float(10,6) NOT NULL,
+  `clg_lat` float(10,6) NOT NULL,
+  `clg_long` float(10,6) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip` varchar(45) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,26 +47,37 @@ CREATE TABLE `attendance` (
 CREATE TABLE `marks` (
   `id` int(10) NOT NULL,
   `s_id` int(10) NOT NULL,
-  `marks` int(5) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `type` varchar(50) NOT NULL,
+  `marks` int(5) DEFAULT NULL,
+  `subject_id` varchar(255) NOT NULL,
+  `resultType_id` varchar(50) NOT NULL,
+  `f_id` int(10) DEFAULT NULL,
   `ip` varchar(45) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `otps`
+-- Table structure for table `result_types`
 --
 
-CREATE TABLE `otps` (
-  `id` int(10) NOT NULL,
-  `otp` varchar(10) NOT NULL,
-  `ip` varchar(45) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `valid` tinyint(1) DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE `result_types` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,9 +95,9 @@ CREATE TABLE `users` (
   `roll` int(5) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
   `ip` varchar(45) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -103,9 +116,15 @@ ALTER TABLE `marks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `otps`
+-- Indexes for table `result_types`
 --
-ALTER TABLE `otps`
+ALTER TABLE `result_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -131,10 +150,16 @@ ALTER TABLE `marks`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `otps`
+-- AUTO_INCREMENT for table `result_types`
 --
-ALTER TABLE `otps`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `result_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
