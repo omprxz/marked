@@ -1,5 +1,6 @@
 <?php
 require_once 'conn.php';
+require('vars.php');
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $minAttendance = $_POST['minAtt'];
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sUserId = $_SESSION['userid'];
     $ip = $_SERVER['REMOTE_ADDR'];
 
-    $attStartDate = '2024-05-18';
+    $attStartDate = $startAttendenceDate;
     $attEndDate = date('Y-m-d');
     $workingDays = 0;
     $currentDate = new DateTime($attStartDate);
@@ -51,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $checkMarksResult = mysqli_query($conn, $checkMarksQuery);
             
             if (mysqli_num_rows($checkMarksResult) > 0) {
-                // Record exists, update the marks
                 $updateMarksQuery = "UPDATE marks SET marks='$marks', f_id='$sUserId', ip='$ip' WHERE s_id='$studentId' AND subject_id='$subjectId' AND resultType_id='$resType'";
                 $updateMarksResult = mysqli_query($conn, $updateMarksQuery);
 
@@ -60,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     exit;
                 }
             } else {
-                // Record does not exist, insert the marks
                 $insertMarksQuery = "INSERT INTO marks (s_id, marks, subject_id, resultType_id, f_id, ip) 
                                     VALUES ('$studentId', '$marks', '$subjectId', '$resType', '$sUserId', '$ip')";
                 $insertMarksResult = mysqli_query($conn, $insertMarksQuery);

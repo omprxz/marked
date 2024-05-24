@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'conn.php';
+require('vars.php');
 
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
     if (($lat1 == $lat2) && ($lon1 == $lon2)) {
@@ -39,12 +40,11 @@ if (mysqli_num_rows($result) > 0) {
     exit();
 }
 
-
 if (!isset($_POST['location']) || !isset($_POST['location']['latitude']) || !isset($_POST['location']['longitude'])) {
     echo json_encode(['status' => 'error', 'message' => 'User location not provided']);
     exit();
 }
-$range=1000;
+
 $userLat = $_POST['location']['latitude'];
 $userLon = $_POST['location']['longitude'];
 
@@ -53,7 +53,7 @@ $collegeLon = 85.1033881;
 
 $distance = distance($userLat, $userLon, $collegeLat, $collegeLon, 'K') * 1000;
 
-if ($distance > $range) {
+if ($distance > $startAttendenceDate) {
     echo json_encode(['status' => 'error', 'message' => 'You are not in the college']);
     exit();
 }

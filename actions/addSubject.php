@@ -4,7 +4,6 @@ require('conn.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = $_POST['subject'];
     
-    // Check if the subject already exists
     $checkQuery = "SELECT COUNT(*) as count FROM subjects WHERE subject = '$subject'";
     $checkResult = mysqli_query($conn, $checkQuery);
     $row = mysqli_fetch_assoc($checkResult);

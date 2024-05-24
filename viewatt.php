@@ -6,7 +6,7 @@ if (!isset($_SESSION['userid'])) {
 } else {
     $sUserId = $_SESSION['userid'];
 }
-
+require('actions/vars.php');
 require_once 'actions/conn.php';
 
 $currentDate = date('Y-m-d');

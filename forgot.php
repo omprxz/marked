@@ -87,7 +87,6 @@
     $('.send').click(function(){
         var email = $('#email').val();
 
-        // Email validation
         if (!isValidEmail(email)) {
             Toast.fire({
                 icon: 'error',
@@ -95,7 +94,6 @@
             });
             return;
         }
-        // Send AJAX request to send OTP
         $.ajax({
             type: 'POST',
             url: 'actions/forgotAction.php',
@@ -137,7 +135,6 @@
     var password = $('#pass').val();
     var confirmPassword = $('#pass2').val();
 
-    // Check if passwords match
     if (password !== confirmPassword) {
         Toast.fire({
             icon: 'error',
@@ -146,7 +143,6 @@
         return;
     }
 
-    // Send AJAX request to verify OTP and reset password
     $.ajax({
         type: 'POST',
         url: 'actions/forgotAction.php',

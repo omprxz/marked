@@ -12,19 +12,16 @@ if (isset($_POST['submit'])) {
   $email = $_POST['email'];
   $pass = $_POST['pass'];
 
-  // Check if user exists
   $sql = "SELECT * FROM users WHERE email='$email'";
   $result = mysqli_query($conn, $sql);
 
   if (mysqli_num_rows($result) > 0) {
     $user = mysqli_fetch_assoc($result);
     
-    // Verify password
     if (password_verify($pass, $user['pass'])) {
       $_SESSION['userid'] = $user['id'];
       $msg = "Login successful!";
       $status = "success";
-      // Redirect to the appropriate dashboard
       header("Location: profile.php");
       exit();
     } else {

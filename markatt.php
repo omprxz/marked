@@ -19,9 +19,6 @@ if (mysqli_num_rows($result) > 0) {
     $attFormStyle='';
     $attMarkedStyle='d-none';
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

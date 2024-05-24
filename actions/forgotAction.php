@@ -44,16 +44,13 @@ function sendMail($email, $otp) {
         $mail->Username = $user[0];
         $mail->Password = $pass[0];
 
-        // Sender and recipient settings
         $mail->setFrom('marked@gmail.com', 'MarkEd');
         $mail->addAddress($email, "MarkEd");
 
-        // Email content
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $message;
 
-        // Send email
         $mail->send();
 
         return true;
@@ -95,7 +92,6 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
             $otp = $_POST['otp'];
             $password = $_POST['pass'];
 
-            // Verify OTP
             if(isset($_SESSION['otp']) && $_SESSION['otp'] == $otp) {
               $pass = password_hash($password, PASSWORD_DEFAULT);
                 $sql = "update users set pass = '$pass' where email = '$email'";
