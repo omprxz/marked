@@ -11,7 +11,9 @@ $(document).ready(function () {
 $("#role").on("change", function() {
     if ($(this).val() == "student") {
         $('.student-dets-div').css('display', 'block');
+        $('.student-dets-input').attr('required', true)
     } else {
         $('.student-dets-div').css('display', 'none');
+        $('.student-dets-input').removeAttr('required')
     }
 });
