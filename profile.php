@@ -16,9 +16,10 @@ if (isset($_POST['update'])) {
     $email = $_POST['email'];
     $branch = $_POST['branch'];
     $semester = $_POST['semester'];
+    $session = $_POST['session'];
     $roll = $_POST['roll'];
 
-    $sql = "UPDATE users SET name='$name', email='$email', branch='$branch', semester='$semester', roll='$roll' WHERE id=$sUserId";
+    $sql = "UPDATE users SET name='$name', email='$email', branch='$branch', semester='$semester',session='$session', roll='$roll' WHERE id=$sUserId";
 
     if (mysqli_query($conn, $sql)) {
         $msg = "Profile updated";
@@ -109,6 +110,18 @@ if (mysqli_num_rows($result) > 0) {
                     <option value="6" <?php echo ($user['semester'] == '6') ? 'selected' : ''; ?>>6th Semester</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <select name="session" class="form-select" required id="session" aria-label="Session" disabled>
+                    <option value="" selected disabled>Select Session</option>
+                   <option value="2018-21" <?php echo ($user['session'] == '2018-21') ? 'selected' : ''; ?>>2018-21</option>
+<option value="2019-22" <?php echo ($user['session'] == '2019-22') ? 'selected' : ''; ?>>2019-22</option>
+<option value="2020-23" <?php echo ($user['session'] == '2020-23') ? 'selected' : ''; ?>>2020-23</option>
+<option value="2021-24" <?php echo ($user['session'] == '2021-24') ? 'selected' : ''; ?>>2021-24</option>
+<option value="2022-25" <?php echo ($user['session'] == '2022-25') ? 'selected' : ''; ?>>2022-25</option>
+<option value="2023-26" <?php echo ($user['session'] == '2023-26') ? 'selected' : ''; ?>>2023-26</option>
+<option value="2024-27" <?php echo ($user['session'] == '2024-27') ? 'selected' : ''; ?>>2024-27</option>
+                </select>
+            </div>
             <div class="form-floating mb-3">
                 <input type="number" name="roll" class="form-control" disabled required id="roll" placeholder=""
                        value="<?php echo htmlspecialchars($user['roll']); ?>">
@@ -169,7 +182,7 @@ if (mysqli_num_rows($result) > 0) {
 <script src="components/profile.js" type="text/javascript" charset="utf-8"></script>
 <script>
   $('.edit').on('click', function(){
-    $('#name, #email, #branch, #semester, #roll').prop('disabled', false);
+    $('#name, #email, #branch, #semester, #session, #roll').prop('disabled', false);
     $('.edit').addClass('d-none');
     $('.cancel, .update').removeClass('d-none');
 });
@@ -179,9 +192,10 @@ $('.cancel').on('click', function(){
     $('#email').val("<?php echo htmlspecialchars($user['email']); ?>");
     $('#branch').val("<?php echo htmlspecialchars($user['branch']); ?>");
     $('#semester').val("<?php echo htmlspecialchars($user['semester']); ?>");
+    $('#session').val("<?php echo htmlspecialchars($user['session']); ?>");
     $('#roll').val("<?php echo htmlspecialchars($user['roll']); ?>");
     
-    $('#name, #email, #branch, #semester, #roll').prop('disabled', true);
+    $('#name, #email, #branch, #semester, #session, #roll').prop('disabled', true);
     
     $('.cancel, .update').addClass('d-none');
     $('.edit').removeClass('d-none');

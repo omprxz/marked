@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 24, 2024 at 01:06 PM
+-- Generation Time: May 27, 2024 at 06:01 PM
 -- Server version: 5.7.34
 -- PHP Version: 8.2.6
 
@@ -92,6 +92,7 @@ CREATE TABLE `users` (
   `role` varchar(50) NOT NULL DEFAULT 'student',
   `branch` varchar(255) DEFAULT NULL,
   `semester` int(2) DEFAULT NULL,
+  `session` varchar(50) DEFAULT '2022-25',
   `roll` int(5) DEFAULT NULL,
   `pass` varchar(100) NOT NULL,
   `ip` varchar(45) DEFAULT NULL,

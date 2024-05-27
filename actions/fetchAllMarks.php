@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $studentId = $marksRow['s_id'];
         $subjectId = $marksRow['subject_id'];
 
-        $studentDetailsQuery = "SELECT name, semester, branch, roll FROM users WHERE id = '$studentId'";
+        $studentDetailsQuery = "SELECT name, semester, session, branch, roll FROM users WHERE id = '$studentId'";
         $studentDetailsResult = mysqli_query($conn, $studentDetailsQuery);
         $studentDetailsRow = mysqli_fetch_assoc($studentDetailsResult);
 
@@ -50,6 +50,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             $studentMarks[$studentId] = array(
                 'name' => $studentDetailsRow['name'],
                 'semester' => $studentDetailsRow['semester'],
+                'session' => $studentDetailsRow['session'],
                 'branch' => $studentDetailsRow['branch'],
                 'roll' => $studentDetailsRow['roll'],
                 'marks' => array()

@@ -74,6 +74,9 @@
               <a class="nav-link" href="/result_types.php">Manage Result Types</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/allstudents.php">All Students Details</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/allmarks.php">View Marks</a>
             </li>
             <li class="nav-item">

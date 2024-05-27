@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_assoc($subject_result)) {
     $subjects[$row['id']] = $row['subject'];
 }
 
-$user_query = "SELECT name, branch, semester, roll FROM users WHERE id = '$sUserId'";
+$user_query = "SELECT name, branch, semester, session, roll FROM users WHERE id = '$sUserId'";
 $user_result = mysqli_query($conn, $user_query);
 $user = mysqli_fetch_assoc($user_result);
 
@@ -64,6 +64,7 @@ $semester_ordinal = ordinal($user['semester']);
                         <p><strong>Name:</strong> <?php echo $user['name']; ?></p>
                         <p><strong>Branch:</strong> <?php echo $user['branch']; ?></p>
                         <p><strong>Semester:</strong> <?php echo $semester_ordinal; ?></p>
+                        <p><strong>Session:</strong> <?php echo $user['session']; ?></p>
                         <p><strong>Roll No.:</strong> <?php echo $user['roll']; ?></p>
                     </div>
                 </div>
@@ -141,7 +142,6 @@ $semester_ordinal = ordinal($user['semester']);
     ?>
 
     <script src="eruda.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

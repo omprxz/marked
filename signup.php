@@ -16,18 +16,19 @@ if (isset($_POST['submit'])) {
   $role = $_POST['role'];
   $branch = isset($_POST['branch']) ? $_POST['branch'] : '';
   $semester = isset($_POST['semester']) ? $_POST['semester'] : '';
+  $session = isset($_POST['session']) ? $_POST['session'] : '';
   $roll = isset($_POST['roll']) ? $_POST['roll'] : '';
   $pass = $_POST['pass'];
   $pass = password_hash($pass, PASSWORD_DEFAULT);
   $sql = "SELECT * FROM users WHERE email='$email'";
 
   if ($role == "student") {
-    if (empty($branch) || empty($semester) || empty($roll)) {
+    if (empty($branch) || empty($semester) || empty($roll) || empty($session)) {
       $msg = "All fields are required!";
       $status = "danger";
     } else {
-      $sql = "SELECT * FROM users WHERE email='$email' OR (role='student' AND branch='$branch' AND semester='$semester' AND roll='$roll')";
-      $sql2 = "INSERT INTO users (name, email, role, branch, semester, roll, pass) VALUES ('$name', '$email', '$role', '$branch', '$semester', '$roll', '$pass')";
+      $sql = "SELECT * FROM users WHERE email='$email' OR (role='student' AND branch='$branch' AND roll='$roll' AND session='$session')";
+      $sql2 = "INSERT INTO users (name, email, role, branch, semester, session, roll, pass) VALUES ('$name', '$email', '$role', '$branch', '$semester', '$session', '$roll', '$pass')";
     }
   } else {
     $sql = "SELECT * FROM users WHERE email='$email'";
@@ -124,6 +125,18 @@ if (isset($_POST['submit'])) {
 <option value="4">4th Semester</option>
 <option value="5">5th Semester</option>
 <option value="6">6th Semester</option>
+</select>
+</div>
+<div class="mb-3 student-dets-div ">
+<select name="session" class="form-select student-dets-input" id="session" value="" aria-label="Session">
+<option selected value="" disabled>Select Session</option>
+<option value="2018-21">2018-21</option>
+<option value="2019-22">2019-22</option>
+<option value="2020-23">2020-23</option>
+<option value="2021-24">2021-24</option>
+<option value="2022-25">2022-25</option>
+<option value="2023-26">2023-26</option>
+<option value="2024-27">2024-27</option>
 </select>
 </div>
 <div class="form-floating mb-3 student-dets-div ">

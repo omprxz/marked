@@ -12,9 +12,9 @@ require_once 'actions/conn.php';
 $currentDate = date('Y-m-d');
 $query = "SELECT * FROM attendance WHERE s_id = '$sUserId' AND DATE(date) = '$currentDate'";
 $result = mysqli_query($conn, $query);
-
-if (mysqli_num_rows($result) == 0) {
-    $attNotMarked = true;
+$attMarked=false;
+if (mysqli_num_rows($result) > 0) {
+    $attMarked = true;
 }
 
 
@@ -66,11 +66,11 @@ $attendancePercentage = ($totalAttendance / $workingDays) * 100;
   ?>
     <div class="container pt-3">
         <h1 class="text-center mb-4">Attendance</h1>
-        <?php if ($attNotMarked): ?>
+        <?php if (!$attMarked){ ?>
     <div class="alert alert-warning alert-dismissible fade show px-3" role="alert">
         Attendance not marked today. <a href="markatt.php" class="alert-link">Mark here <i class="fas fa-hand-point-right"></i></a>
     </div>
-<?php endif; ?>
+<?php } ?>
         <div class="text-center mb-4">
           <p class="">Date: <?php echo $startAttendenceDate.' -> '.date("Y-m-d"); ?></p>
     <p class="badge bg-dark p-2">Total Working Days: <?php echo $workingDays; ?></p>

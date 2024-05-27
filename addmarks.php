@@ -31,6 +31,42 @@ if (!isset($_SESSION['userid'])) {
         <input name="minAtt" type="number" class="form-control min-att" aria-label="Mininum attendance" placeholder="Mininum">
         <input name="maxAtt" type="number" class="form-control max-att" aria-label="Maximum attendance" placeholder="Maximum">
       </div>
+      <div class="form-floating mb-4">
+        <select name="session[]" multiple class="form-select session" aria-label="Session">
+          <?php
+            $sessionQuery = "SELECT DISTINCT session FROM users where role = 'student';";
+            $sessionResult = mysqli_query($conn, $sessionQuery);
+            while($row = mysqli_fetch_assoc($sessionResult)) {
+              echo "<option value='".$row['session']."'>".$row['session']."</option>";
+            }
+          ?>
+        </select>
+        <label for="session">Session</label>
+      </div>
+      <div class="form-floating mb-4">
+        <select name="branch[]" multiple class="form-select branch" aria-label="Branch">
+          <?php
+            $sessionQuery = "SELECT DISTINCT branch FROM users where role = 'student';";
+            $sessionResult = mysqli_query($conn, $sessionQuery);
+            while($row = mysqli_fetch_assoc($sessionResult)) {
+              echo "<option value='".$row['branch']."'>".$row['branch']."</option>";
+            }
+          ?>
+        </select>
+        <label for="branch">Branch</label>
+      </div>
+      <div class="form-floating mb-4">
+        <select name="semester[]" multiple class="form-select semester" aria-label="Semester">
+          <?php
+            $sessionQuery = "SELECT DISTINCT semester FROM users where role = 'student';";
+            $sessionResult = mysqli_query($conn, $sessionQuery);
+            while($row = mysqli_fetch_assoc($sessionResult)) {
+              echo "<option value='".$row['semester']."'>".$row['semester']."</option>";
+            }
+          ?>
+        </select>
+        <label for="semester">Semester</label>
+      </div>
       <div class="form-floating mb-3">
         <input name="marks" type="number" class="form-control marks" id="floatingMarks" placeholder="Marks">
         <label for="floatingMarks">Marks</label>
@@ -95,6 +131,7 @@ if (!isset($_SESSION['userid'])) {
 $('.add').click(function () {
   const minAtt = $('.min-att').val();
   const maxAtt = $('.max-att').val();
+  const session = $('.session').val();
   const marks = $('.marks').val();
   const subjects = $('.subjects').val();
   const resType = $('.res-type').val();
@@ -111,6 +148,14 @@ $('.add').click(function () {
     Toast.fire({
       icon: 'error',
       title: 'Maximum attendance is required'
+    });
+    return;
+  }
+  
+  if (session === null || session.length === 0) {
+    Toast.fire({
+      icon: 'error',
+      title: 'At least one session is required'
     });
     return;
   }

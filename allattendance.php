@@ -61,18 +61,20 @@ if (!isset($_SESSION['userid'])) {
     $totalWorkingDays = getTotalWorkingDays($startAttendenceDate); ?>
     <div class="container">
       <h1 class="fw-bold mt-3 text-center">All Attendance</h1>
-      <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
+      <div class="d-flex justify-content-between align-items-center mb-0 mt-4">
           <div>
               <p class="mb-2">Date: <?php echo $startAttendenceDate.' - '.date("Y-m-d"); ?></p>
-              <p>Total Working Days: <?php echo $totalWorkingDays; ?></p>
+              <p class="mb-0">Total Working Days: <?php echo $totalWorkingDays; ?></p>
           </div>
-          <div class="d-flex gap-1">
+      </div>
+      <div class="d-flex gap-2 my-3 justify-content-center">
             <a href="actions/download_attendance.php?download=pdf" class="btn btn-sm btn-primary float-end">PDF <i class="fas fa-download"></i>
             </a>
             <a href="actions/download_attendance.php?download=csv" class="btn btn-sm btn-primary float-end">CSV <i class="fas fa-download"></i>
             </a>
+            <a href="actions/download_attendance.php?download=dat" class="btn btn-sm btn-primary float-end">DAT <i class="fas fa-download"></i>
+            </a>
           </div>
-      </div>
       <div class="table-container" style="overflow-x: auto;">
         <table id="attendanceTable" class="table table-primary table-bordered table-hover p-0 tableAtt">
           <thead class="thead-fixed">
@@ -81,6 +83,7 @@ if (!isset($_SESSION['userid'])) {
               <th>Roll No</th>
               <th>Branch</th>
               <th>Semester</th>
+              <th>Session</th>
               <?php
                 $startDate = new DateTime($startAttendenceDate);
                 $endDate = new DateTime(); 
@@ -98,7 +101,7 @@ if (!isset($_SESSION['userid'])) {
           </thead>
           <tbody>
             <?php
-              $sql = "SELECT users.id, users.name, users.roll, users.branch, users.semester, COUNT(attendance.id) AS total_present,
+              $sql = "SELECT users.id, users.name, users.roll, users.branch, users.semester, users.session, COUNT(attendance.id) AS total_present,
                       (COUNT(attendance.id) / $totalWorkingDays) * 100 AS percentage
                       FROM users
                       LEFT JOIN attendance ON users.id = attendance.s_id
@@ -111,7 +114,8 @@ if (!isset($_SESSION['userid'])) {
                   echo "<td>" . $row['name'] . "</td>";
                   echo "<td>" . $row['roll'] . "</td>";
                   echo "<td>" . $row['branch'] . "</td>";
-                  echo "<td>" . $row['semester']; 
+                  echo "<td>" . $row['semester']. "</td>"; 
+                  echo "<td>" . $row['session']. "</td>"; 
                   foreach ($period as $date) {
                     if ($date->format('N') != 7) { 
                       $formattedDate = $date->format('Y-m-d');

@@ -149,9 +149,13 @@ require('actions/conn.php');
             type: 'GET',
             dataType: 'json',
             success: function(jsonData) {
+              if(jsonData.length > 0){
                 jsonData.forEach(data => {
                     createTable(data.resultType, data.details);
                 });
+              }else{
+                $('#tables-container').html('<h3 class="text-center fw-bold">View Marks</h3><div class="alert alert-info mt-3">No marks record found.</div>')
+              }
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", status, error);

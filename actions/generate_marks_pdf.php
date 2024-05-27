@@ -1,12 +1,13 @@
 <?php
 require('../libs/fpdf/fpdf.php');
 require('conn.php');
+require_once('vars.php');
 
 if (isset($_GET['resultType_id']) && isset($_GET['sUserId'])) {
     $resultType_id = $_GET['resultType_id'];
     $sUserId = $_GET['sUserId'];
 
-    $user_query = "SELECT name, branch, semester, roll FROM users WHERE id = '$sUserId'";
+    $user_query = "SELECT name, branch, semester, session, roll FROM users WHERE id = '$sUserId'";
     $user_result = mysqli_query($conn, $user_query);
     $user = mysqli_fetch_assoc($user_result);
 
@@ -36,6 +37,8 @@ if (isset($_GET['resultType_id']) && isset($_GET['sUserId'])) {
     $pdf->Cell(40, 10, 'Branch: ' . $user['branch']);
     $pdf->Ln();
     $pdf->Cell(40, 10, 'Semester: ' . ordinal($user['semester']));
+    $pdf->Ln();
+    $pdf->Cell(40, 10, 'Session: ' . $user['session']);
     $pdf->Ln();
     $pdf->Cell(40, 10, 'Roll No.: ' . $user['roll']);
     $pdf->Ln(20);
